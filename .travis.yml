@@ -7,7 +7,7 @@ os: linux
 dist: trusty
 language: generic
 
-install:
+before_install:
     # Install Miniconda.
     - echo `pwd`
     - |
@@ -28,8 +28,10 @@ install:
       conda config --add channels conda-forge
       conda config --set show_channel_urls true
 
+install:
+  - conda install -y -q jinja2 pygit2 click pyyaml setuptools_scm
+
 script:
-  - conda install -y -q jinja2 pygit2 click pyyaml
   - pushd ..
   - git clone https://github.com/apache/arrow
-  - python arrow/dev/tasks/crossbow.py 
+  - python arrow/dev/tasks/crossbow.py

@@ -32,9 +32,11 @@ install:
   - conda install -y -q jinja2 pygit2 click pyyaml setuptools_scm
 
 script:
-  # re-clone crossbow to fetch all branches
-  - mkdir -p ../repos && pushd ../repos
-  - git clone https://github.com/kszucs/crossbow
+  # fetch all branches of crossbow
+  - git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
+
+  # clone arrow with crossbow tool
+  - pushd ..
   - git clone -b nightly https://github.com/kszucs/arrow
 
   # submit packaging tasks

@@ -17,3 +17,11 @@ limitations under the License.
 -->
 
 # Arrow Packaging Tasks
+
+## Nightlies
+
+The nightly builds are triggered by nightly jobs set up on Travis at
+https://travis-ci.org/ursa-labs/crossbow/settings.
+There are two [branches](https://github.com/ursa-labs/crossbow/branches/all?query=trigger)
+which submits [packaging tasks](https://github.com/ursa-labs/crossbow/blob/trigger-nightly-tests/.travis.yml#L56)
+and [nightly tests](https://github.com/ursa-labs/crossbow/blob/trigger-nightly-builds/.travis.yml).

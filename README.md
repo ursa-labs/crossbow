@@ -20,8 +20,6 @@ limitations under the License.
 
 ## Nightlies
 
-The nightly builds are triggered by nightly jobs set up on Travis at
-https://travis-ci.org/ursa-labs/crossbow/settings.
-There are two [branches](https://github.com/ursa-labs/crossbow/branches/all?query=trigger)
-which submits [packaging tasks](https://github.com/ursa-labs/crossbow/blob/trigger-nightly-tests/.travis.yml#L56)
-and [nightly tests](https://github.com/ursa-labs/crossbow/blob/trigger-nightly-builds/.travis.yml).
+The nightly builds are submitted by cron jobs running on Ursa-labs machines.
+For the triggered tasks see the nightly group of crossbow's
+[task definition file](https://github.com/apache/arrow/blob/master/dev/tasks/tasks.yml).

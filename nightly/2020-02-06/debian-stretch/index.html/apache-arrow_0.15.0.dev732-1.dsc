@@ -1,0 +1,1 @@
+https://github.com/ursa-labs/crossbow/releases/download/nightly-2020-02-06-0-azure-debian-stretch/apache-arrow_0.15.0.dev732-1.dsc

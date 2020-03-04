@@ -30,12 +30,11 @@ jobs:
           CROSSBOW_REPORT_SMTP_USER: ${{ secrets.CROSSBOW_SMTP_USER }}
           CROSSBOW_REPORT_SMTP_PASSWORD: ${{ secrets.CROSSBOW_SMTP_PASSWORD }}
         run: |
-          today=$(date -I)
-          today='nightly-2020-01-11'  # just for testing
-          job_id=$(arrow/dev/tasks/crossbow.py latest-prefix ${today})
+          job_prefix=nightly-$(date -I)
+          job_id=$(arrow/dev/tasks/crossbow.py latest-prefix ${job_prefix})
           arrow/dev/tasks/crossbow.py report \
             --send --poll --poll-max-minutes 120 \
             --sender-name Crossbow \
             --sender-email 'crossbow@ursalabs.org' \
-            --recipient-email 'szucs.krisztian@gmail.com' \
+            --recipient-email 'dev@arrow.apache.org' \
             ${job_id}

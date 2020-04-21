@@ -1,13 +1,13 @@
-name: Submit
+name: Report
 
 on:
   schedule:
-    - cron: '0 6 * * *'
+    - cron: '0 12 * * *'
 
 jobs:
 
-  nightly-submit:
-    name: Submit Nightly Builds
+  nightly-report:
+    name: Update Github page
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Arrow
@@ -23,11 +23,8 @@ jobs:
       - name: Install Dependencies
         shell: bash
         run: conda install -y --file arrow/ci/conda_env_crossbow.txt
-      - name: Submit Nightlies
+      - name: Send Report
         shell: bash
         env:
           CROSSBOW_GITHUB_TOKEN: ${{ secrets.CROSSBOW_GITHUB_TOKEN }}
-        run: |
-          arrow/dev/tasks/crossbow.py submit \
-            --job-prefix nightly-$(date -I) \
-            --group nightly
+        run: arrow/dev/tasks/crossbow.py github-page generate -n 20

@@ -1,0 +1,25 @@
+!Job
+target: !Target
+  head: d321a8d91da755f1e9b716fe1151f8ebbf01b4d4
+  email: unknown
+  branch: datetime
+  remote: https://github.com/emkornfield/arrow.git
+  version: 0.18.0.dev559
+  no_rc_version: 0.18.0.dev559
+  no_rc_semver_version: 0.18.0-dev559
+tasks:
+  test-conda-python-3.7-spark-master: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        SPARK: master
+      # use the master branch of spark, so prevent reusing any layers
+      run: --no-leaf-cache conda-python-spark
+
+  # Remove the "skipped-" prefix in ARROW-8475
+    branch: actions-373-github-test-conda-python-3.7-spark-master
+    commit: 74d9d5fa9cbc4c83ff962335c8724ae79982393a
+branch: actions-373

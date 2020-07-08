@@ -1,0 +1,37 @@
+!Job
+target: !Target
+  head: 408d257b67794af56297691c10a7e01bc1ea0e1f
+  email: unknown
+  branch: ARROW-9354
+  remote: https://github.com/kszucs/arrow.git
+  version: 0.18.0.dev630
+  no_rc_version: 0.18.0.dev630
+  no_rc_semver_version: 0.18.0-dev630
+tasks:
+  test-conda-python-3.7-turbodbc-master: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        TURBODBC: master
+      # use the master branch of dask, so prevent reusing any cached layers
+      run: --no-leaf-cache conda-python-turbodbc
+
+    branch: actions-390-github-test-conda-python-3.7-turbodbc-master
+    commit: ee3dc3050d759b2fa3e88f3040416ec5f8d83184
+  test-conda-python-3.7-turbodbc-latest: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        TURBODBC: latest
+      # use the latest turbodbc release, so prevent reusing any cached layers
+      run: --no-leaf-cache conda-python-turbodbc
+
+    branch: actions-390-github-test-conda-python-3.7-turbodbc-latest
+    commit: fd2529451c27ea3a440b203d3eee11220ef05782
+branch: actions-390

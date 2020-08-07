@@ -1,0 +1,36 @@
+!Job
+target: !Target
+  head: e21e9ff23f98427d1898f8de99945549e2fabe12
+  email: unknown
+  branch: ARROW-9629-kartothek-test-deps
+  remote: https://github.com/jorisvandenbossche/arrow.git
+  version: 1.1.0.dev41
+  no_rc_version: 1.1.0.dev41
+  no_rc_semver_version: 1.1.0-dev41
+tasks:
+  test-conda-python-3.7-kartothek-master: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        KARTOTHEK: master
+      # use the master branch of kartothek, so prevent reusing any layers
+      run: --no-leaf-cache conda-python-kartothek
+
+    branch: actions-468-github-test-conda-python-3.7-kartothek-master
+    commit: 724404bdc84d57fab7cd1930b78025d1f71f62b0
+  test-conda-python-3.7-kartothek-latest: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        KARTOTHEK: latest
+      run: --no-leaf-cache conda-python-kartothek
+
+    branch: actions-468-github-test-conda-python-3.7-kartothek-latest
+    commit: 3cbe6de962ccdd3b40fdef32659b68933dbd3cf8
+branch: actions-468

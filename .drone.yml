@@ -1,0 +1,37 @@
+---
+kind: pipeline
+name: linux_aarch64_python3.6.____cpython
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+- name: Install and build
+  image: condaforge/linux-anvil-aarch64
+  environment:
+    CONFIG: linux_aarch64_python3.6.____cpython
+    UPLOAD_PACKAGES: False
+    ARROW_VERSION: 1.1.0.dev233
+    PLATFORM: linux-aarch64
+    BINSTAR_TOKEN:
+      from_secret: BINSTAR_TOKEN
+    FEEDSTOCK_TOKEN:
+      from_secret: FEEDSTOCK_TOKEN
+    STAGING_BINSTAR_TOKEN:
+      from_secret: STAGING_BINSTAR_TOKEN
+  commands:
+    - export RECIPE_ROOT="$FEEDSTOCK_ROOT/arrow-cpp"
+    - export CI=drone
+    - export GIT_BRANCH="ARROW-8359"
+    - export FEEDSTOCK_NAME=arrow-cpp
+    - export FEEDSTOCK_ROOT="$DRONE_WORKSPACE/arrow/dev/tasks/conda-recipes"
+    - sed -i '$ichown -R conda:conda "$FEEDSTOCK_ROOT"' /opt/docker/bin/entrypoint
+    - yum install -y git
+    - git clone --no-checkout https://github.com/xhochy/arrow.git arrow
+    - git -C arrow fetch -t https://github.com/xhochy/arrow.git ARROW-8359
+    - git -C arrow checkout FETCH_HEAD
+    - git -C arrow submodule update --init --recursive
+    - /opt/docker/bin/entrypoint $FEEDSTOCK_ROOT/build_steps.sh
+    - echo "Done building"
+    # TODO: Upload to anaconda and github releases

@@ -1,0 +1,43 @@
+---
+kind: pipeline
+name: linux_aarch64_python3.6.____cpython
+
+platform:
+  os: linux
+  arch: arm64
+
+# Omit double builds with crossbow
+trigger:
+  event:
+    - push
+
+steps:
+- name: Install and build
+  image: condaforge/linux-anvil-aarch64
+  environment:
+    CONFIG: linux_aarch64_python3.6.____cpython
+    UPLOAD_PACKAGES: False
+    ARROW_VERSION: 1.1.0.dev305
+    PLATFORM: linux-aarch64
+    BINSTAR_TOKEN:
+      from_secret: BINSTAR_TOKEN
+    FEEDSTOCK_TOKEN:
+      from_secret: FEEDSTOCK_TOKEN
+    STAGING_BINSTAR_TOKEN:
+      from_secret: STAGING_BINSTAR_TOKEN
+    CROSSBOW_GITHUB_TOKEN:
+      from_secret: CROSSBOW_GITHUB_TOKEN
+    CROSSBOW_ANACONDA_TOKEN:
+      from_secret: CROSSBOW_ANACONDA_TOKEN
+  commands:
+    - export RECIPE_ROOT="$FEEDSTOCK_ROOT/arrow-cpp"
+    - export CI=drone
+    - export GIT_BRANCH="master"
+    - export FEEDSTOCK_NAME=arrow-cpp
+    - export FEEDSTOCK_ROOT="$DRONE_WORKSPACE/arrow/dev/tasks/conda-recipes"
+    - sed -i '$ichown -R conda:conda "$FEEDSTOCK_ROOT"' /opt/docker/bin/entrypoint
+    - yum install -y git
+    - git clone --no-checkout https://github.com/apache/arrow arrow
+    - pushd arrow && git fetch -t https://github.com/apache/arrow master && git checkout FETCH_HEAD && git submodule update --init --recursive && popd
+    - mkdir -p $(pwd)/build_artifacts && chmod a+rwx $(pwd)/build_artifacts
+    - /opt/docker/bin/entrypoint $FEEDSTOCK_ROOT/drone-steps.sh $(pwd)/build_artifacts https://github.com/ursa-labs/crossbow nightly-2020-09-19-0-drone-conda-linux-gcc-py36-aarch64 nightly-2020-09-19-0-drone-conda-linux-gcc-py36-aarch64 1

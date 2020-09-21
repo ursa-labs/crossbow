@@ -1,0 +1,24 @@
+jobs:
+- job: linux
+  pool:
+    vmImage: ubuntu-18.04
+  timeoutInMinutes: 360
+
+  steps:
+  - script: |
+      git clone --no-checkout https://github.com/xhochy/arrow.git arrow
+      git -C arrow fetch -t https://github.com/xhochy/arrow.git ARROW-100049
+      git -C arrow checkout FETCH_HEAD
+      git -C arrow submodule update --init --recursive
+    displayName: Clone arrow
+
+  - script: |
+      conda install -y -c conda-forge pandas anaconda-client
+    displayName: Install requirements
+
+  - script: |
+      
+      eval "$(conda shell.bash hook)"
+      conda activate base
+      python3 arrow/dev/tasks/conda-recipes/clean.py 
+    displayName: Delete outdated packages

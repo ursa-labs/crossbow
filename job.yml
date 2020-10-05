@@ -1,0 +1,25 @@
+!Job
+target: !Target
+  head: 017b9c91bbe88cd36745d4ed376a635995fa67b4
+  email: ursabot@ci.ursalabs.org
+  branch: refs/pull/8352/merge
+  remote: https://github.com/apache/arrow
+  version: 1.1.0.dev415
+  no_rc_version: 1.1.0.dev415
+  no_rc_semver_version: 1.1.0-dev415
+tasks:
+  test-conda-python-3.8-spark-master: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.8
+        SPARK: master
+      # use the master branch of spark, so prevent reusing any layers
+      run: --no-leaf-cache conda-python-spark
+
+  # Remove the "skipped-" prefix in ARROW-8475
+    branch: ursabot-582-github-test-conda-python-3.8-spark-master
+    commit: 3ccd6df60bf30b0c01bb1ab5a69c7b1f2dc70a3b
+branch: ursabot-582

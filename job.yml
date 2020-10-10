@@ -1,0 +1,33 @@
+!Job
+target: !Target
+  head: 97d85b7612e0bf7504f4f55ee03e3a86dbd2b3df
+  email: unknown
+  branch: flight-test
+  remote: https://github.com/kszucs/arrow.git
+  version: 1.1.0.dev486
+  no_rc_version: 1.1.0.dev486
+  no_rc_semver_version: 1.1.0-dev486
+tasks:
+  wheel-win-cp36m: !Task
+    ci: appveyor
+    template: python-wheels/appveyor.yml
+    artifacts:
+    - pyarrow-1.1.0.dev486-cp36-cp36m-win_amd64.whl
+    params:
+      script: win-build.bat
+      python_version: 3.6
+      python_interpreter: C:\Python36-x64\python.exe
+    branch: actions-638-appveyor-wheel-win-cp36m
+    commit: a73c9d017952b504a7f9e4d95118fa1756e77573
+  wheel-osx-mavericks-cp36m: !Task
+    ci: travis
+    template: python-wheels/travis.osx.yml
+    artifacts:
+    - pyarrow-1.1.0.dev486-cp36-cp36m-macosx_10_9_intel.whl
+    params:
+      python_version: 3.6
+      macos_deployment_target: 10.9
+      arrow_s3: OFF
+    branch: actions-638-travis-wheel-osx-mavericks-cp36m
+    commit: ec13566594ac3e0d1c1a6292d28f3e91119186d9
+branch: actions-638

@@ -1,0 +1,290 @@
+!Job
+target: !Target
+  head: 4a13fe39680bd639114f19d5b834ed51bc5b3256
+  email: szucs.krisztian@gmail.com
+  branch: release-verification
+  remote: https://github.com/kszucs/arrow
+  version: 1.1.0.dev524
+  no_rc_version: 1.1.0.dev524
+  no_rc_semver_version: 1.1.0-dev524
+tasks:
+  verify-rc-source-linux-go: !Task
+    ci: github
+    template: verify-rc/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+        TEST_GO: 1
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-linux-go
+    commit: 741a8dc351d00a15524aa63879d66c69204abe8e
+  verify-rc-source-macos-csharp: !Task
+    ci: github
+    template: verify-rc/github.osx.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+        TEST_CSHARP: 1
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-macos-csharp
+    commit: a4976ee2588e41a943bcac65451d4c90945e4e9f
+  verify-rc-binaries-binary: !Task
+    ci: github
+    template: verify-rc/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+        TEST_BINARY: 1
+      artifact: binaries
+
+    branch: build-931-github-verify-rc-binaries-binary
+    commit: 0444c8334a8439d628d553dea3f17c41cdad9db5
+  verify-rc-binaries-apt: !Task
+    ci: github
+    template: verify-rc/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+        TEST_APT: 1
+      artifact: binaries
+
+    branch: build-931-github-verify-rc-binaries-apt
+    commit: 1338d62cb2cb1bf0e3e5f6bbfa2bd28709f62976
+  verify-rc-source-linux-python: !Task
+    ci: github
+    template: verify-rc/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+        TEST_PYTHON: 1
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-linux-python
+    commit: ebea7932d0090356d149d5b7dff4ccd5ad8583ca
+  verify-rc-wheels-windows: !Task
+    ci: github
+    template: verify-rc/github.win.yml
+    artifacts: []
+    params:
+      script: verify-release-candidate-wheels.bat
+
+  ############################## Docker tests #################################
+
+    branch: build-931-github-verify-rc-wheels-windows
+    commit: d6c2950e77d2153e75e1bfa222e542494e982600
+  verify-rc-source-macos-python: !Task
+    ci: github
+    template: verify-rc/github.osx.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+        TEST_PYTHON: 1
+        # https://stackoverflow.com/questions/56083725/macos-build-issues-lstdc-not-found-while-building-python-package
+        MACOS_DEPLOYMENT_TARGET: '10.15'
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-macos-python
+    commit: 4534d8e8eccbbd4bb8eae63e98f6feb315fb77df
+  verify-rc-source-macos-ruby: !Task
+    ci: github
+    template: verify-rc/github.osx.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+        TEST_RUBY: 1
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-macos-ruby
+    commit: a863877d2d9f94773aad8992a8ecab10b2b77021
+  verify-rc-source-linux-csharp: !Task
+    ci: github
+    template: verify-rc/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+        TEST_CSHARP: 1
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-linux-csharp
+    commit: 7a052fac746c39a283c963a8cb67d855db55b9d2
+  verify-rc-source-macos-integration: !Task
+    ci: github
+    template: verify-rc/github.osx.yml
+    artifacts: []
+    params:
+      env:
+        INSTALL_NODE: 0
+        TEST_DEFAULT: 0
+        TEST_INTEGRATION: 1
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-macos-integration
+    commit: bf85ed664b78ffbdb47031788b9f08dac2e31afa
+  verify-rc-source-linux-rust: !Task
+    ci: github
+    template: verify-rc/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+        TEST_RUST: 1
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-linux-rust
+    commit: a046cbe5a9a504f1bba51452e87726069459f782
+  verify-rc-source-macos-java: !Task
+    ci: github
+    template: verify-rc/github.osx.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+        TEST_JAVA: 1
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-macos-java
+    commit: bbdaf572687c6ca38f05e608bef9a2515b652b93
+  verify-rc-source-linux-js: !Task
+    ci: github
+    template: verify-rc/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        INSTALL_NODE: 0
+        TEST_DEFAULT: 0
+        TEST_JS: 1
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-linux-js
+    commit: d6398e8d03cbc34ef603fe4a81c9bcbd5d37002c
+  verify-rc-source-windows: !Task
+    ci: github
+    template: verify-rc/github.win.yml
+    artifacts: []
+    params:
+      script: verify-release-candidate.bat
+
+    branch: build-931-github-verify-rc-source-windows
+    commit: 8529fedacb51dd46723cd3e50ff2bfcf9988e737
+  verify-rc-binaries-yum: !Task
+    ci: github
+    template: verify-rc/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+        TEST_YUM: 1
+      artifact: binaries
+
+    branch: build-931-github-verify-rc-binaries-yum
+    commit: 946c46ba771496779ce6fa42599834b49a24e225
+  verify-rc-source-linux-java: !Task
+    ci: github
+    template: verify-rc/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+        TEST_JAVA: 1
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-linux-java
+    commit: 6a861f65e077f1983ab3c71ee7db4128913847f4
+  verify-rc-source-linux-ruby: !Task
+    ci: github
+    template: verify-rc/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+        TEST_RUBY: 1
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-linux-ruby
+    commit: d9e8f22539bc89e29b9b27e02b252893e422322b
+  verify-rc-source-macos-go: !Task
+    ci: github
+    template: verify-rc/github.osx.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+        TEST_GO: 1
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-macos-go
+    commit: 6cab3ed800de9b71b4ce8977598e5780b345949b
+  verify-rc-wheels-macos: !Task
+    ci: github
+    template: verify-rc/github.osx.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+      artifact: wheels
+
+    branch: build-931-github-verify-rc-wheels-macos
+    commit: bb56543dd2b432dae001d021c2ae097a0f3bbf7d
+  verify-rc-source-linux-integration: !Task
+    ci: github
+    template: verify-rc/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        INSTALL_NODE: 0
+        TEST_DEFAULT: 0
+        TEST_INTEGRATION: 1
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-linux-integration
+    commit: 9c43bad1efd57a37bce85d5f4291ef9bb0f20782
+  verify-rc-source-macos-rust: !Task
+    ci: github
+    template: verify-rc/github.osx.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+        TEST_RUST: 1
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-macos-rust
+    commit: bd67e62f31d527ba1212d43a5391ac429141bd35
+  verify-rc-source-macos-js: !Task
+    ci: github
+    template: verify-rc/github.osx.yml
+    artifacts: []
+    params:
+      env:
+        INSTALL_NODE: 0
+        TEST_DEFAULT: 0
+        TEST_JS: 1
+      artifact: source
+
+    branch: build-931-github-verify-rc-source-macos-js
+    commit: 5a250fc7fb0b1ec23a1bc4a04c0500acd572b939
+  verify-rc-wheels-linux: !Task
+    ci: github
+    template: verify-rc/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        TEST_DEFAULT: 0
+      artifact: wheels
+
+    branch: build-931-github-verify-rc-wheels-linux
+    commit: f6fb34996693f58ad67f708db24f72b482c12f27
+params:
+  release: 2.0.0
+  rc: '2'
+branch: build-931

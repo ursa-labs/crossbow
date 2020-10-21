@@ -1,8 +1,8 @@
 name: Report
 
-on:
-  schedule:
-    - cron: '0 10 * * *'
+# on:
+#   schedule:
+#     - cron: '0 10 * * *'
 
 jobs:
 
@@ -32,6 +32,7 @@ jobs:
         run: |
           job_prefix=nightly-$(date -I)
           job_id=$(arrow/dev/tasks/crossbow.py latest-prefix ${job_prefix})
+          echo "Sending report for job ${job_id}..."
           arrow/dev/tasks/crossbow.py report \
             --send \
             --sender-name Crossbow \

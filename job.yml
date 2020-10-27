@@ -1,0 +1,63 @@
+!Job
+target: !Target
+  head: 39db1694630010399d7213a595e83bd27f97ff04
+  email: unknown
+  branch: 10131-Lazily-parse-parquet-meta
+  remote: https://github.com/bkietz/arrow.git
+  version: 2.1.0.dev67
+  no_rc_version: 2.1.0.dev67
+  no_rc_semver_version: 2.1.0-dev67
+tasks:
+  test-conda-python-3.8-dask-master: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.8
+        DASK: master
+      # use the master branch of dask, so prevent reusing any cached layers
+      run: --no-leaf-cache conda-python-dask
+
+    branch: actions-683-github-test-conda-python-3.8-dask-master
+    commit: 0f1c6b00531f1701c3c22da3aa6cde1f6aff3be3
+  test-conda-python-3.7-kartothek-latest: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        KARTOTHEK: latest
+      run: --no-leaf-cache conda-python-kartothek
+
+    branch: actions-683-github-test-conda-python-3.7-kartothek-latest
+    commit: 09d72e5f0e9534e6f345cd1b0d29c5161547e915
+  test-conda-python-3.7-dask-latest: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        DASK: latest
+      # use the latest dask release, so prevent reusing any cached layers
+      run: --no-leaf-cache conda-python-dask
+
+    branch: actions-683-github-test-conda-python-3.7-dask-latest
+    commit: 70eb2a31cd1cba5a7a34cbfb4ff029d54f3e6761
+  test-conda-python-3.7-kartothek-master: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        KARTOTHEK: master
+      # use the master branch of kartothek, so prevent reusing any layers
+      run: --no-leaf-cache conda-python-kartothek
+
+    branch: actions-683-github-test-conda-python-3.7-kartothek-master
+    commit: bdf6549607d442eab7c7f7b8fed0c909bf6afeb2
+params: {}
+branch: actions-683

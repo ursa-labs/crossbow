@@ -1,0 +1,192 @@
+!Job
+target: !Target
+  head: 3711544fb1a2606741747affca51013e2cf4d22e
+  email: unknown
+  branch: centos-ARROW-10856
+  remote: https://github.com/jonkeane/arrow.git
+  version: 2.1.0.dev390
+  no_rc_version: 2.1.0.dev390
+  no_rc_semver_version: 2.1.0-dev390
+tasks:
+  test-ubuntu-18.04-r-sanitizer: !Task
+    ci: azure
+    template: docker-tests/azure.linux.yml
+    artifacts: []
+    params:
+      run: ubuntu-r-sanitizer
+
+    branch: actions-802-azure-test-ubuntu-18.04-r-sanitizer
+    commit: e90a0cf8b02e36ec5af0648696221b7bc377a2ed
+  test-r-rstudio-r-base-3.6-opensuse42: !Task
+    ci: azure
+    template: r/azure.linux.yml
+    artifacts: []
+    params:
+      r_org: rstudio
+      r_image: r-base
+      r_tag: 3.6-opensuse42
+      not_cran: 'TRUE'
+
+    branch: actions-802-azure-test-r-rstudio-r-base-3.6-opensuse42
+    commit: 3a28af85a038cc154d085b2a1e76aa99b5efbfdf
+  test-r-linux-as-cran: !Task
+    ci: github
+    template: r/github.linux.cran.yml
+    artifacts: []
+    params:
+      MATRIX: ${{ matrix.r_image }}
+
+    branch: actions-802-github-test-r-linux-as-cran
+    commit: cd7a7fa7ac528acf8c1be28b0b55c7855bc08669
+  test-r-rocker-r-base-latest: !Task
+    ci: azure
+    template: r/azure.linux.yml
+    artifacts: []
+    params:
+      r_org: rocker
+      r_image: r-base
+      r_tag: latest
+      not_cran: 'TRUE'
+
+    branch: actions-802-azure-test-r-rocker-r-base-latest
+    commit: f6fb9af36eb2d75e7c14504548b9d7e210536123
+  conda-osx-clang-py36-r36: !Task
+    ci: azure
+    template: conda-recipes/azure.osx.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev390-py36(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev390-py36(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: osx_python3.6.____cpython
+      r_config: osx_64_r_base3.6
+    branch: actions-802-azure-conda-osx-clang-py36-r36
+    commit: 7dd418d34a597798526c654d26a67eafeca8ae53
+  conda-win-vs2017-py36-r36: !Task
+    ci: azure
+    template: conda-recipes/azure.win.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev390-py36(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev390-py36(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: win_python3.6.____cpython
+      r_config: win_64_r_base3.6
+    branch: actions-802-azure-conda-win-vs2017-py36-r36
+    commit: 5a3febadab04c2ea3507112cf1e6185fe8fed8c1
+  test-r-rstudio-r-base-3.6-centos7: !Task
+    ci: azure
+    template: r/azure.linux.yml
+    artifacts: []
+    params:
+      r_org: rstudio
+      r_image: r-base
+      r_tag: 3.6-centos7
+      not_cran: 'TRUE'
+      devtoolset_version: 8
+
+    branch: actions-802-azure-test-r-rstudio-r-base-3.6-centos7
+    commit: 58111869deaad85ae2b91364693bc27a58dfc9c8
+  conda-win-vs2017-py37-r40: !Task
+    ci: azure
+    template: conda-recipes/azure.win.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev390-py37(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev390-py37(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: win_python3.7.____cpython
+      r_config: win_64_r_base4.0
+    branch: actions-802-azure-conda-win-vs2017-py37-r40
+    commit: a93bdae0f1f7bb9fb8eb73f71c32eee927870207
+  test-r-rstudio-r-base-3.6-centos8: !Task
+    ci: azure
+    template: r/azure.linux.yml
+    artifacts: []
+    params:
+      r_org: rstudio
+      r_image: r-base
+      r_tag: 3.6-centos8
+      not_cran: 'TRUE'
+
+    branch: actions-802-azure-test-r-rstudio-r-base-3.6-centos8
+    commit: c470362145855f9593a312f9874d10171eddb093
+  test-r-rstudio-r-base-3.6-bionic: !Task
+    ci: azure
+    template: r/azure.linux.yml
+    artifacts: []
+    params:
+      r_org: rstudio
+      r_image: r-base
+      r_tag: 3.6-bionic
+      not_cran: 'TRUE'
+
+    branch: actions-802-azure-test-r-rstudio-r-base-3.6-bionic
+    commit: ddae41bfcb2a1105d62ae24336da47fe17092556
+  test-r-rhub-ubuntu-gcc-release: !Task
+    ci: azure
+    template: r/azure.linux.yml
+    artifacts: []
+    params:
+      r_org: rhub
+      r_image: ubuntu-gcc-release
+      r_tag: latest
+      not_cran: 'TRUE'
+
+    branch: actions-802-azure-test-r-rhub-ubuntu-gcc-release
+    commit: e8d0e63727d9b4c0e2c850d999c7316e57cb1b46
+  homebrew-r-autobrew: !Task
+    ci: travis
+    template: homebrew-formulae/travis.osx.r.yml
+    artifacts: []
+    params:
+      r_version: release
+
+  ############################## Gandiva Tasks ################################
+
+    branch: actions-802-travis-homebrew-r-autobrew
+    commit: 4523d496c480fdf143e9fcc7ba3e17b17fe2ec6b
+  conda-linux-gcc-py36-cpu-r36: !Task
+    ci: azure
+    template: conda-recipes/azure.linux.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev390-py36(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev390-py36(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: linux_cuda_compiler_versionNonepython3.6.____cpython
+      r_config: linux_64_r_base3.6
+    branch: actions-802-azure-conda-linux-gcc-py36-cpu-r36
+    commit: 42ba59fc06ffc9ff87d62adde5bd179401ccbdda
+  test-r-rstudio-r-base-3.6-opensuse15: !Task
+    ci: azure
+    template: r/azure.linux.yml
+    artifacts: []
+    params:
+      r_org: rstudio
+      r_image: r-base
+      r_tag: 3.6-opensuse15
+      not_cran: 'TRUE'
+
+    branch: actions-802-azure-test-r-rstudio-r-base-3.6-opensuse15
+    commit: e3d46bd5832575220b6fd42708ba62cb5f1cdc83
+  conda-linux-gcc-py37-cpu-r40: !Task
+    ci: azure
+    template: conda-recipes/azure.linux.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev390-py37(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev390-py37(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: linux_cuda_compiler_versionNonepython3.7.____cpython
+      r_config: linux_64_r_base4.0
+    branch: actions-802-azure-conda-linux-gcc-py37-cpu-r40
+    commit: d00dfc49d64434910ee42e24570abae1e45f3b17
+  conda-osx-clang-py37-r40: !Task
+    ci: azure
+    template: conda-recipes/azure.osx.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev390-py37(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev390-py37(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: osx_python3.7.____cpython
+      r_config: osx_64_r_base4.0
+    branch: actions-802-azure-conda-osx-clang-py37-r40
+    commit: e9bf263ea080f1587da15c96aa0bc3b9a65b80c0
+params: {}
+branch: actions-802

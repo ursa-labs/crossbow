@@ -1,0 +1,38 @@
+!Job
+target: !Target
+  head: fc5b3a0d3839212119c148500a59953b89dc5f98
+  email: unknown
+  branch: ARROW-10951
+  remote: https://github.com/jorisvandenbossche/arrow.git
+  version: 2.1.0.dev408
+  no_rc_version: 2.1.0.dev408
+  no_rc_semver_version: 2.1.0-dev408
+tasks:
+  test-conda-python-3.8-pandas-nightly: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.8
+        PANDAS: nightly
+        NUMPY: nightly
+      run: --no-leaf-cache conda-python-pandas
+
+    branch: actions-811-github-test-conda-python-3.8-pandas-nightly
+    commit: cb1c3ea6c49ca12469838fae51865c072cd7a23f
+  test-conda-python-3.7-pandas-master: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        PANDAS: master
+      # use the master branch of pandas, so prevent reusing any cached layers
+      run: --no-leaf-cache conda-python-pandas
+
+    branch: actions-811-github-test-conda-python-3.7-pandas-master
+    commit: 572c1c69a1faf2d9f5fcb4d900c1f3d2a9b41d88
+params: {}
+branch: actions-811

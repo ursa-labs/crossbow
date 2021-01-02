@@ -1,0 +1,1822 @@
+!Job
+target: !Target
+  head: cd22be6efedbf9832b5ea875ca59bb42de7b6c28
+  email: unknown
+  branch: master
+  remote: https://github.com/apache/arrow
+  version: 2.1.0.dev494
+  no_rc_version: 2.1.0.dev494
+  no_rc_semver_version: 2.1.0-dev494
+tasks:
+  test-ubuntu-20.04-cpp: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      run: ubuntu-cpp
+
+    branch: nightly-2021-01-02-0-github-test-ubuntu-20.04-cpp
+    commit: a56c78c598b55df39390417af6986d9db111ea72
+  conda-linux-gcc-py39-aarch64: !Task
+    ci: drone
+    template: conda-recipes/drone.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py39(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev494-py39(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: linux_aarch64_python3.9.____cpython
+    branch: nightly-2021-01-02-0-drone-conda-linux-gcc-py39-aarch64
+    commit: 564f14fd2858e2493f524e02e3c3314cde5e5d27
+  ubuntu-bionic-arm64: !Task
+    ci: travis
+    template: linux-packages/travis.linux.arm64.yml
+    artifacts:
+    - apache-arrow_2.1.0.dev494-1.debian.tar.xz
+    - apache-arrow_2.1.0.dev494-1.dsc
+    - apache-arrow_2.1.0.dev494.orig.tar.gz
+    - gir1.2-arrow-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-parquet-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet300_2.1.0.dev494-1_[a-z0-9]+.deb
+    params:
+      build_task: apt:build
+      target: ubuntu-bionic-arm64
+      upload_extensions:
+      - .ddeb
+      - .deb
+      - .debian.tar.xz
+      - .dsc
+      - .orig.tar.gz
+    branch: nightly-2021-01-02-0-travis-ubuntu-bionic-arm64
+    commit: 652383a46997ca0ca2a1433d26e4b1d28182cf6e
+  wheel-osx-mavericks-cp37m: !Task
+    ci: travis
+    template: python-wheels/travis.osx.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp37-cp37m-macosx_10_9_x86_64.whl
+    params:
+      python_version: 3.7
+      macos_deployment_target: 10.9
+      arrow_s3: OFF
+    branch: nightly-2021-01-02-0-travis-wheel-osx-mavericks-cp37m
+    commit: 1b10cf7a4149943d3d624ada429cf9b508ee3487
+  wheel-win-cp36m: !Task
+    ci: github
+    template: python-wheels/github.win.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp36-cp36m-win_amd64.whl
+    params:
+      python_version: 3.6
+    branch: nightly-2021-01-02-0-github-wheel-win-cp36m
+    commit: c40c541e2f2b6ac783e587a664aa42463e761889
+  conda-osx-clang-py36-r36: !Task
+    ci: azure
+    template: conda-recipes/azure.osx.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py36(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev494-py36(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: osx_python3.6.____cpython
+      r_config: osx_64_r_base3.6
+    branch: nightly-2021-01-02-0-azure-conda-osx-clang-py36-r36
+    commit: ea9db51c65c709166ae0a538115ca74b853b4e0e
+  homebrew-cpp: !Task
+    ci: travis
+    template: homebrew-formulae/travis.osx.yml
+    artifacts: []
+    params:
+      formula: apache-arrow.rb
+
+    branch: nightly-2021-01-02-0-travis-homebrew-cpp
+    commit: cee8b70b4b66f423916cc84684094810ec8f93ce
+  test-conda-python-3.7-turbodbc-master: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        TURBODBC: master
+      # use the master branch of dask, so prevent reusing any cached layers
+      run: --no-leaf-cache conda-python-turbodbc
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.7-turbodbc-master
+    commit: 29d0fab89429ebc836391005004565f4b3e660b5
+  conda-linux-gcc-py37-cuda: !Task
+    ci: azure
+    template: conda-recipes/azure.linux.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py37(h[a-z0-9]+)_0_cuda.tar.bz2
+    - pyarrow-2.1.0.dev494-py37(h[a-z0-9]+)_0_cuda.tar.bz2
+    params:
+      config: linux_cuda_compiler_version9.2python3.7.____cpython
+    branch: nightly-2021-01-02-0-azure-conda-linux-gcc-py37-cuda
+    commit: 39d0d6f6d9d6e13e42b05f4d088890b9eee8a3eb
+  test-conda-cpp: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      run: conda-cpp
+
+    branch: nightly-2021-01-02-0-github-test-conda-cpp
+    commit: ffad2476b827926b8c5b05a3b791a803a68b61b0
+  conda-linux-gcc-py36-cuda: !Task
+    ci: azure
+    template: conda-recipes/azure.linux.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py36(h[a-z0-9]+)_0_cuda.tar.bz2
+    - pyarrow-2.1.0.dev494-py36(h[a-z0-9]+)_0_cuda.tar.bz2
+    params:
+      config: linux_cuda_compiler_version9.2python3.6.____cpython
+    branch: nightly-2021-01-02-0-azure-conda-linux-gcc-py36-cuda
+    commit: f91e58da743faa3350e08d394192b631145443e3
+  centos-7-aarch64: !Task
+    ci: travis
+    template: linux-packages/travis.linux.arm64.yml
+    artifacts:
+    - arrow-2.1.0.dev494-1.el7.src.rpm
+    - arrow-dataset-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-dataset-glib-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-dataset-glib-doc-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-dataset-glib-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-dataset-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-debuginfo-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-glib-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-glib-doc-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-glib-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-python-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-python-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - parquet-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - parquet-glib-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - parquet-glib-doc-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - parquet-glib-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - parquet-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - plasma-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - plasma-glib-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - plasma-glib-doc-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - plasma-glib-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - plasma-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - plasma-store-server-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    params:
+      build_task: yum:build
+      target: centos-7-aarch64
+      upload_extensions:
+      - .rpm
+    branch: nightly-2021-01-02-0-travis-centos-7-aarch64
+    commit: bb357cfcbab530f4c2233fb8b9d0f7d4868cab02
+  test-conda-python-3.7-pandas-master: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        PANDAS: master
+      # use the master branch of pandas, so prevent reusing any cached layers
+      run: --no-leaf-cache conda-python-pandas
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.7-pandas-master
+    commit: c8bfad884becb0cda15ec85096cf4e6cee3e60a7
+  conda-linux-gcc-py37-aarch64: !Task
+    ci: drone
+    template: conda-recipes/drone.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py37(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev494-py37(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: linux_aarch64_python3.7.____cpython
+    branch: nightly-2021-01-02-0-drone-conda-linux-gcc-py37-aarch64
+    commit: 068dae4c3542e84ec2399f37468b791a4fa82dcf
+  test-conda-python-3.7-kartothek-latest: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        KARTOTHEK: latest
+      run: --no-leaf-cache conda-python-kartothek
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.7-kartothek-latest
+    commit: 2b5d3146fcc821f92eccd31285d8bb961ce46804
+  wheel-manylinux2010-cp36m: !Task
+    ci: azure
+    template: python-wheels/azure.linux.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp36-cp36m-manylinux2010_x86_64.whl
+    params:
+      python_version: 3.6
+      unicode_width: 16
+      wheel_tag: manylinux2010
+      wheel_dir: manylinux201x
+      test_docker_images:
+      - python:3.6
+      test_remove_system_libs: true
+    branch: nightly-2021-01-02-0-azure-wheel-manylinux2010-cp36m
+    commit: f6efb07eac9bceda1ce4962b7dabd123e1dfc661
+  conda-win-vs2017-py38: !Task
+    ci: azure
+    template: conda-recipes/azure.win.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py38(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev494-py38(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: win_python3.8.____cpython
+    branch: nightly-2021-01-02-0-azure-conda-win-vs2017-py38
+    commit: 868f6e161a1ee85a6b86c753fb81e5d77d027fbe
+  ubuntu-bionic-amd64: !Task
+    ci: github
+    template: linux-packages/github.linux.amd64.yml
+    artifacts:
+    - apache-arrow-archive-keyring_2.1.0.dev494-1.debian.tar.xz
+    - apache-arrow-archive-keyring_2.1.0.dev494-1.dsc
+    - apache-arrow-archive-keyring_2.1.0.dev494-1_all.deb
+    - apache-arrow-archive-keyring_2.1.0.dev494.orig.tar.gz
+    - apache-arrow_2.1.0.dev494-1.debian.tar.xz
+    - apache-arrow_2.1.0.dev494-1.dsc
+    - apache-arrow_2.1.0.dev494.orig.tar.gz
+    - gir1.2-arrow-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-arrow-cuda-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-gandiva-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-parquet-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-plasma-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - plasma-store-server-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - plasma-store-server_2.1.0.dev494-1_[a-z0-9]+.deb
+    params:
+      build_task: apt:build
+      target: ubuntu-bionic
+      upload_extensions:
+      - .ddeb
+      - .deb
+      - .debian.tar.xz
+      - .dsc
+      - .orig.tar.gz
+    branch: nightly-2021-01-02-0-github-ubuntu-bionic-amd64
+    commit: e8c7dc3aeac3e8701d6de59d31ae417e3ca50a3f
+  test-fedora-33-cpp: !Task
+    ci: circle
+    template: docker-tests/circle.linux.yml
+    artifacts: []
+    params:
+      env:
+        FEDORA: 33
+      run: fedora-cpp
+
+    branch: nightly-2021-01-02-0-circle-test-fedora-33-cpp
+    commit: 117f8f8e87627bfe0c36200374922b40940340af
+  test-conda-python-3.8-pandas-latest: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.8
+        PANDAS: latest
+      # use the latest pandas release, so prevent reusing any cached layers
+      run: --no-leaf-cache conda-python-pandas
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.8-pandas-latest
+    commit: ec3616feec0314bc21bd70addbf1f1c76bb127d5
+  gandiva-jar-osx: !Task
+    ci: github
+    template: gandiva-jars/github.osx.yml
+    artifacts:
+    - arrow-gandiva-2.1.0.dev494-SNAPSHOT.jar
+    params: {}
+    branch: nightly-2021-01-02-0-github-gandiva-jar-osx
+    commit: 873a4ae1a22328ea21a446749307d3f2a8731573
+  wheel-manylinux2014-cp36m: !Task
+    ci: azure
+    template: python-wheels/azure.linux.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp36-cp36m-manylinux2014_x86_64.whl
+    params:
+      python_version: 3.6
+      unicode_width: 16
+      wheel_tag: manylinux2014
+      wheel_dir: manylinux201x
+      test_docker_images:
+      - python:3.6
+      test_remove_system_libs: true
+    branch: nightly-2021-01-02-0-azure-wheel-manylinux2014-cp36m
+    commit: 9da79e3dd74998b34001b95e6544f95d9c2ee9cf
+  test-r-rocker-r-base-latest: !Task
+    ci: azure
+    template: r/azure.linux.yml
+    artifacts: []
+    params:
+      r_org: rocker
+      r_image: r-base
+      r_tag: latest
+      not_cran: 'TRUE'
+
+    branch: nightly-2021-01-02-0-azure-test-r-rocker-r-base-latest
+    commit: ecf13ee51016c37b88ae0b621646dfee443592e2
+  ubuntu-focal-arm64: !Task
+    ci: travis
+    template: linux-packages/travis.linux.arm64.yml
+    artifacts:
+    - apache-arrow_2.1.0.dev494-1.debian.tar.xz
+    - apache-arrow_2.1.0.dev494-1.dsc
+    - apache-arrow_2.1.0.dev494.orig.tar.gz
+    - gir1.2-arrow-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-parquet-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet300_2.1.0.dev494-1_[a-z0-9]+.deb
+    params:
+      build_task: apt:build
+      target: ubuntu-focal-arm64
+      upload_extensions:
+      - .ddeb
+      - .deb
+      - .debian.tar.xz
+      - .dsc
+      - .orig.tar.gz
+    branch: nightly-2021-01-02-0-travis-ubuntu-focal-arm64
+    commit: 6969a2cdb18e5b0eb4837580914bd1672e037bd8
+  example-cpp-minimal-build-static: !Task
+    ci: github
+    template: cpp-examples/github.linux.yml
+    artifacts: []
+    params:
+      type: minimal_build
+      run: static
+
+    branch: nightly-2021-01-02-0-github-example-cpp-minimal-build-static
+    commit: 6cacab687e8140a8a5180608ddea21f2a6c15682
+  test-conda-python-3.7-kartothek-master: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        KARTOTHEK: master
+      # use the master branch of kartothek, so prevent reusing any layers
+      run: --no-leaf-cache conda-python-kartothek
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.7-kartothek-master
+    commit: 484d874659a4eb194ff54cc2e88cd74f6d44dace
+  wheel-osx-mavericks-cp38: !Task
+    ci: travis
+    template: python-wheels/travis.osx.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp38-cp38-macosx_10_9_x86_64.whl
+    params:
+      python_version: 3.8
+      macos_deployment_target: 10.9
+      arrow_s3: OFF
+    branch: nightly-2021-01-02-0-travis-wheel-osx-mavericks-cp38
+    commit: 471fa88682638e793e2d1d7095716e8c10ed280f
+  conda-osx-clang-py37-r40: !Task
+    ci: azure
+    template: conda-recipes/azure.osx.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py37(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev494-py37(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: osx_python3.7.____cpython
+      r_config: osx_64_r_base4.0
+    branch: nightly-2021-01-02-0-azure-conda-osx-clang-py37-r40
+    commit: e1b4f8156a5cdb8dce268110154c5e1e4371ed29
+  test-conda-python-3.8-pandas-nightly: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.8
+        PANDAS: nightly
+        NUMPY: nightly
+      run: --no-leaf-cache conda-python-pandas
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.8-pandas-nightly
+    commit: 2f6db2ce292c7e1f5555115f4797d74ebd24e23e
+  test-r-rhub-ubuntu-gcc-release: !Task
+    ci: azure
+    template: r/azure.linux.yml
+    artifacts: []
+    params:
+      r_org: rhub
+      r_image: ubuntu-gcc-release
+      r_tag: latest
+      not_cran: 'TRUE'
+
+    branch: nightly-2021-01-02-0-azure-test-r-rhub-ubuntu-gcc-release
+    commit: f5143e7f9c301a934fb9ceafb2285ee748bb0b9b
+  wheel-manylinux1-cp39: !Task
+    ci: azure
+    template: python-wheels/azure.linux.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp39-cp39-manylinux1_x86_64.whl
+    params:
+      python_version: 3.9
+      unicode_width: 16
+      wheel_tag: manylinux1
+      wheel_dir: manylinux1
+      test_docker_images:
+      - python:3.9
+      test_remove_system_libs: true
+    branch: nightly-2021-01-02-0-azure-wheel-manylinux1-cp39
+    commit: af15f1e29196d0c604d853eb14b220271d68bee9
+  centos-8-aarch64: !Task
+    ci: travis
+    template: linux-packages/travis.linux.arm64.yml
+    artifacts:
+    - arrow-2.1.0.dev494-1.el8.src.rpm
+    - arrow-dataset-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-dataset-glib-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-dataset-glib-doc-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-dataset-glib-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-dataset-glib-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-dataset-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-dataset-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-flight-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-flight-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-flight-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-glib-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-glib-doc-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-glib-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-glib-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-python-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-python-flight-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-python-flight-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-python-flight-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-python-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-python-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - parquet-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - parquet-glib-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - parquet-glib-doc-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - parquet-glib-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - parquet-glib-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - parquet-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - parquet-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-glib-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-glib-doc-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-glib-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-glib-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-store-server-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-store-server-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    params:
+      build_task: yum:build
+      target: centos-8-aarch64
+      upload_extensions:
+      - .rpm
+    branch: nightly-2021-01-02-0-travis-centos-8-aarch64
+    commit: d21a80d34505fbc9645a8dfaa7c99421ee4b9adb
+  test-ubuntu-c-glib: !Task
+    ci: circle
+    template: docker-tests/circle.linux.yml
+    artifacts: []
+    params:
+      run: ubuntu-c-glib
+
+    branch: nightly-2021-01-02-0-circle-test-ubuntu-c-glib
+    commit: 5cfea3099edc824e14b8227820aa7a8f3581939b
+  test-conda-python-3.6-pandas-0.23: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.6
+        PANDAS: 0.23
+      run: conda-python-pandas
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.6-pandas-0.23
+    commit: 0cece6c7236d33142938758c8529b9253c98ba60
+  conda-linux-gcc-py38-cuda: !Task
+    ci: azure
+    template: conda-recipes/azure.linux.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py38(h[a-z0-9]+)_0_cuda.tar.bz2
+    - pyarrow-2.1.0.dev494-py38(h[a-z0-9]+)_0_cuda.tar.bz2
+    params:
+      config: linux_cuda_compiler_version9.2python3.8.____cpython
+    branch: nightly-2021-01-02-0-azure-conda-linux-gcc-py38-cuda
+    commit: 33b4aaa8469d50f6fad306d378e3b60d27082b49
+  centos-7-amd64: !Task
+    ci: github
+    template: linux-packages/github.linux.amd64.yml
+    artifacts:
+    - apache-arrow-release-2.1.0.dev494-1.el7.noarch.rpm
+    - apache-arrow-release-2.1.0.dev494-1.el7.src.rpm
+    - arrow-2.1.0.dev494-1.el7.src.rpm
+    - arrow-debuginfo-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-glib-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-glib-doc-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-glib-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-dataset-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-dataset-glib-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-dataset-glib-doc-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-dataset-glib-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-dataset-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-python-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - arrow-python-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - parquet-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - parquet-glib-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - parquet-glib-doc-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - parquet-glib-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - parquet-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - plasma-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - plasma-glib-devel-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - plasma-glib-doc-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - plasma-glib-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - plasma-libs-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    - plasma-store-server-2.1.0.dev494-1.el7.[a-z0-9_]+.rpm
+    params:
+      build_task: yum:build
+      target: centos-7
+      upload_extensions:
+      - .rpm
+    branch: nightly-2021-01-02-0-github-centos-7-amd64
+    commit: 9423c101ca798e2415ed262979619e7f4f276ca3
+  wheel-win-cp38: !Task
+    ci: github
+    template: python-wheels/github.win.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp38-cp38-win_amd64.whl
+    params:
+      python_version: 3.8
+    branch: nightly-2021-01-02-0-github-wheel-win-cp38
+    commit: 1066ce1fd9b99c94acead0523deaa6e92e3b7ecb
+  ubuntu-xenial-amd64: !Task
+    ci: github
+    template: linux-packages/github.linux.amd64.yml
+    artifacts:
+    - apache-arrow-archive-keyring_2.1.0.dev494-1.debian.tar.xz
+    - apache-arrow-archive-keyring_2.1.0.dev494-1.dsc
+    - apache-arrow-archive-keyring_2.1.0.dev494-1_all.deb
+    - apache-arrow-archive-keyring_2.1.0.dev494.orig.tar.gz
+    - apache-arrow_2.1.0.dev494-1.debian.tar.xz
+    - apache-arrow_2.1.0.dev494-1.dsc
+    - apache-arrow_2.1.0.dev494.orig.tar.gz
+    - gir1.2-arrow-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-arrow-cuda-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-gandiva-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-parquet-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-plasma-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - plasma-store-server_2.1.0.dev494-1_[a-z0-9]+.deb
+    params:
+      build_task: apt:build
+      target: ubuntu-xenial
+      upload_extensions:
+      - .ddeb
+      - .deb
+      - .debian.tar.xz
+      - .dsc
+      - .orig.tar.gz
+    branch: nightly-2021-01-02-0-github-ubuntu-xenial-amd64
+    commit: 777b2098970ae5c0b547a035fda2c58bead10cb4
+  test-debian-10-python-3: !Task
+    ci: azure
+    template: docker-tests/azure.linux.yml
+    artifacts: []
+    params:
+      env:
+        DEBIAN: 10
+      run: debian-python
+
+    branch: nightly-2021-01-02-0-azure-test-debian-10-python-3
+    commit: 80ecb8b81f6ff1de6e87f2e109c47c3507c27292
+  conda-linux-gcc-py38-cpu: !Task
+    ci: azure
+    template: conda-recipes/azure.linux.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py38(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev494-py38(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: linux_cuda_compiler_versionNonepython3.8.____cpython
+    branch: nightly-2021-01-02-0-azure-conda-linux-gcc-py38-cpu
+    commit: 7f895ae520d189de6501ba7de7ec88d1c2a521a9
+  test-ubuntu-16.04-cpp: !Task
+    ci: circle
+    template: docker-tests/circle.linux.yml
+    artifacts: []
+    params:
+      env:
+        UBUNTU: 16.04
+      run: ubuntu-cpp
+
+    branch: nightly-2021-01-02-0-circle-test-ubuntu-16.04-cpp
+    commit: 0c9a82a2ba83163774c171e60db21e9fba1d4daa
+  wheel-win-cp37m: !Task
+    ci: github
+    template: python-wheels/github.win.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp37-cp37m-win_amd64.whl
+    params:
+      python_version: 3.7
+    branch: nightly-2021-01-02-0-github-wheel-win-cp37m
+    commit: 5e3c7c1711b25cedaa4201c00f0d8b20ef6fe063
+  test-conda-cpp-valgrind: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      run: conda-cpp-valgrind
+
+    branch: nightly-2021-01-02-0-github-test-conda-cpp-valgrind
+    commit: e5ef005a2d9c67eb8592e56fdd81c4e6cb92a626
+  wheel-manylinux2010-cp37m: !Task
+    ci: azure
+    template: python-wheels/azure.linux.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp37-cp37m-manylinux2010_x86_64.whl
+    params:
+      python_version: 3.7
+      unicode_width: 16
+      wheel_tag: manylinux2010
+      wheel_dir: manylinux201x
+      test_docker_images:
+      - python:3.7
+      test_remove_system_libs: true
+    branch: nightly-2021-01-02-0-azure-wheel-manylinux2010-cp37m
+    commit: aef3afd5c6c219a13f7aa1d74c42fd8a763f1da3
+  conda-win-vs2017-py37-r40: !Task
+    ci: azure
+    template: conda-recipes/azure.win.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py37(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev494-py37(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: win_python3.7.____cpython
+      r_config: win_64_r_base4.0
+    branch: nightly-2021-01-02-0-azure-conda-win-vs2017-py37-r40
+    commit: 4a49d21c3d5daa0658aece7854e65a11cfb525af
+  test-ubuntu-18.04-cpp-static: !Task
+    ci: circle
+    template: docker-tests/circle.linux.yml
+    artifacts: []
+    params:
+      run: -e ARROW_BUILD_SHARED=OFF -e ARROW_BUILD_STATIC=ON -e ARROW_TEST_LINKAGE=static
+        ubuntu-cpp
+
+    branch: nightly-2021-01-02-0-circle-test-ubuntu-18.04-cpp-static
+    commit: 84d78dc6660823c72c7f24e769c6d15baeb5332d
+  test-conda-python-3.7-pandas-latest: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        PANDAS: latest
+      # use the latest pandas release, so prevent reusing any cached layers
+      run: --no-leaf-cache conda-python-pandas
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.7-pandas-latest
+    commit: 9e97fbc5fab4db488fe6265805935108666df48b
+  test-ubuntu-20.04-cpp-17: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      run: -e CMAKE_ARGS=-DCMAKE_CXX_STANDARD=17 ubuntu-cpp
+
+    branch: nightly-2021-01-02-0-github-test-ubuntu-20.04-cpp-17
+    commit: 72b4541eadfd43e0c4aff66a8ef21a81bd2bbbdd
+  test-conda-python-3.8-spark-master: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.8
+        SPARK: master
+      # use the master branch of spark, so prevent reusing any layers
+      run: --no-leaf-cache conda-python-spark
+
+  # Remove the "skipped-" prefix in ARROW-8475
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.8-spark-master
+    commit: 4f93cb1b5a93a7fcdaf27f1318e7fc81ddbfe585
+  conda-clean: !Task
+    ci: azure
+    template: conda-recipes/azure.clean.yml
+    artifacts: []
+    params: {}
+    branch: nightly-2021-01-02-0-azure-conda-clean
+    commit: b6f04b77641df9bef34bb3341b4a33ee7f59cfc0
+  test-conda-python-3.7-dask-latest: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        DASK: latest
+      # use the latest dask release, so prevent reusing any cached layers
+      run: --no-leaf-cache conda-python-dask
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.7-dask-latest
+    commit: 5d5bd0b13461da35997ee357803c22897fa913b7
+  debian-buster-arm64: !Task
+    ci: travis
+    template: linux-packages/travis.linux.arm64.yml
+    artifacts:
+    - apache-arrow_2.1.0.dev494-1.debian.tar.xz
+    - apache-arrow_2.1.0.dev494-1.dsc
+    - apache-arrow_2.1.0.dev494.orig.tar.gz
+    - gir1.2-arrow-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-parquet-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libarrow-dataset-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libarrow-dataset300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libarrow-flight300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libarrow-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libarrow-python300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libarrow300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libgandiva-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libgandiva300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libparquet-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libparquet300_2.1.0.dev494-1_[a-z0-9]+.deb
+    params:
+      build_task: apt:build
+      target: debian-buster-arm64
+      upload_extensions:
+      - .ddeb
+      - .deb
+      - .debian.tar.xz
+      - .dsc
+      - .orig.tar.gz
+    branch: nightly-2021-01-02-0-travis-debian-buster-arm64
+    commit: df20dbf849b1af67a9f86da9d41e375db8599311
+  conda-linux-gcc-py39-cpu: !Task
+    ci: azure
+    template: conda-recipes/azure.linux.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py39(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev494-py39(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: linux_cuda_compiler_versionNonepython3.9.____cpython
+    branch: nightly-2021-01-02-0-azure-conda-linux-gcc-py39-cpu
+    commit: c483895c5f50af0eba740d9b1ce9ccb7e748bebe
+  centos-8-amd64: !Task
+    ci: github
+    template: linux-packages/github.linux.amd64.yml
+    artifacts:
+    - apache-arrow-release-2.1.0.dev494-1.el8.noarch.rpm
+    - apache-arrow-release-2.1.0.dev494-1.el8.src.rpm
+    - arrow-2.1.0.dev494-1.el8.src.rpm
+    - arrow-dataset-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-dataset-glib-doc-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-dataset-glib-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-dataset-glib-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-dataset-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-dataset-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-flight-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-flight-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-flight-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-glib-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-glib-doc-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-glib-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-glib-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-python-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-python-flight-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-python-flight-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-python-flight-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-python-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - arrow-python-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - gandiva-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - gandiva-glib-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - gandiva-glib-doc-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - gandiva-glib-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - gandiva-glib-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - gandiva-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - gandiva-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - parquet-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - parquet-glib-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - parquet-glib-doc-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - parquet-glib-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - parquet-glib-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - parquet-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - parquet-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-glib-devel-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-glib-doc-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-glib-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-glib-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-libs-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-libs-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-store-server-debuginfo-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    - plasma-store-server-2.1.0.dev494-1.el8.[a-z0-9_]+.rpm
+    params:
+      build_task: yum:build
+      target: centos-8
+      upload_extensions:
+      - .rpm
+    branch: nightly-2021-01-02-0-github-centos-8-amd64
+    commit: 6195183c5d80cbbb123e3dd48b62b093d3eff5e5
+  wheel-manylinux1-cp37m: !Task
+    ci: azure
+    template: python-wheels/azure.linux.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp37-cp37m-manylinux1_x86_64.whl
+    params:
+      python_version: 3.7
+      unicode_width: 16
+      wheel_tag: manylinux1
+      wheel_dir: manylinux1
+      test_docker_images:
+      - python:3.7
+      test_remove_system_libs: true
+    branch: nightly-2021-01-02-0-azure-wheel-manylinux1-cp37m
+    commit: 0397192baa499d02385d1025f021e45899df0835
+  wheel-manylinux2014-cp39: !Task
+    ci: azure
+    template: python-wheels/azure.linux.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp39-cp39-manylinux2014_x86_64.whl
+    params:
+      python_version: 3.9
+      unicode_width: 16
+      wheel_tag: manylinux2014
+      wheel_dir: manylinux201x
+      test_docker_images:
+      - python:3.9
+      test_remove_system_libs: true
+    branch: nightly-2021-01-02-0-azure-wheel-manylinux2014-cp39
+    commit: 0acd6e550a5dd98926f8ea2b8fd781477a2d9ce0
+  test-r-rstudio-r-base-3.6-bionic: !Task
+    ci: azure
+    template: r/azure.linux.yml
+    artifacts: []
+    params:
+      r_org: rstudio
+      r_image: r-base
+      r_tag: 3.6-bionic
+      not_cran: 'TRUE'
+
+    branch: nightly-2021-01-02-0-azure-test-r-rstudio-r-base-3.6-bionic
+    commit: cc8c19f9dae82e0bebe8757a02e4089efe25bfda
+  ubuntu-groovy-amd64: !Task
+    ci: github
+    template: linux-packages/github.linux.amd64.yml
+    artifacts:
+    - apache-arrow-archive-keyring_2.1.0.dev494-1.debian.tar.xz
+    - apache-arrow-archive-keyring_2.1.0.dev494-1.dsc
+    - apache-arrow-archive-keyring_2.1.0.dev494-1_all.deb
+    - apache-arrow-archive-keyring_2.1.0.dev494.orig.tar.gz
+    - apache-arrow_2.1.0.dev494-1.debian.tar.xz
+    - apache-arrow_2.1.0.dev494-1.dsc
+    - apache-arrow_2.1.0.dev494.orig.tar.gz
+    - gir1.2-arrow-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-arrow-cuda-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-gandiva-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-parquet-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-plasma-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - plasma-store-server-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - plasma-store-server_2.1.0.dev494-1_[a-z0-9]+.deb
+    params:
+      build_task: apt:build
+      target: ubuntu-groovy
+      upload_extensions:
+      - .ddeb
+      - .deb
+      - .debian.tar.xz
+      - .dsc
+      - .orig.tar.gz
+    branch: nightly-2021-01-02-0-github-ubuntu-groovy-amd64
+    commit: 0e0b1fe7ae7805234e583aa4d15cb4dfd69f3559
+  test-ubuntu-ruby: !Task
+    ci: azure
+    template: docker-tests/azure.linux.yml
+    artifacts: []
+    params:
+      run: ubuntu-ruby
+
+    branch: nightly-2021-01-02-0-azure-test-ubuntu-ruby
+    commit: fe8f5b6baabf592d4d25c6c13a429b506690f832
+  gandiva-jar-ubuntu: !Task
+    ci: github
+    template: gandiva-jars/github.linux.yml
+    artifacts:
+    - arrow-gandiva-2.1.0.dev494-SNAPSHOT.jar
+    params: {}
+    branch: nightly-2021-01-02-0-github-gandiva-jar-ubuntu
+    commit: 5d80b78a0e025a62378856c2e1a38faf16a76572
+  example-cpp-minimal-build-static-system-dependency: !Task
+    ci: github
+    template: cpp-examples/github.linux.yml
+    artifacts: []
+    params:
+      type: minimal_build
+      run: static-system-dependency
+    branch: nightly-2021-01-02-0-github-example-cpp-minimal-build-static-system-dependency
+    commit: 205d112299cb9f521534a7cc78df91ae4e69513b
+  wheel-manylinux2010-cp38: !Task
+    ci: azure
+    template: python-wheels/azure.linux.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp38-cp38-manylinux2010_x86_64.whl
+    params:
+      python_version: 3.8
+      unicode_width: 16
+      wheel_tag: manylinux2010
+      wheel_dir: manylinux201x
+      test_docker_images:
+      - python:3.8
+      test_remove_system_libs: true
+    branch: nightly-2021-01-02-0-azure-wheel-manylinux2010-cp38
+    commit: e464ef468c523805e95c2c32652b314f1a49bd63
+  test-debian-10-go-1.12: !Task
+    ci: azure
+    template: docker-tests/azure.linux.yml
+    artifacts: []
+    params:
+      env:
+        GO: 1.12
+      run: debian-go
+
+    branch: nightly-2021-01-02-0-azure-test-debian-10-go-1.12
+    commit: 05eac56e759b79d575250df15be722e08718ce7b
+  conda-linux-gcc-py36-aarch64: !Task
+    ci: drone
+    template: conda-recipes/drone.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py36(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev494-py36(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: linux_aarch64_python3.6.____cpython
+    branch: nightly-2021-01-02-0-drone-conda-linux-gcc-py36-aarch64
+    commit: 617c4cf2629d1b91a57f659cb2c2f70296944589
+  test-conda-python-3.8-jpype: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.8
+      run: conda-python-jpype
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.8-jpype
+    commit: 6d544f9a8e35d860abc9f183c911318916739f41
+  test-conda-python-3.6: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.6
+      run: conda-python
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.6
+    commit: 14b368493d5f816c7387d0ef4243f8c9f429ed7b
+  test-ubuntu-18.04-docs: !Task
+    ci: azure
+    template: docker-tests/azure.linux.yml
+    artifacts: []
+    params:
+      env:
+        UBUNTU: 18.04
+      run: ubuntu-docs
+
+  ############################## Integration tests ############################
+
+    branch: nightly-2021-01-02-0-azure-test-ubuntu-18.04-docs
+    commit: 561164eaee50bcd35e9bb62a96912a03aaa0880d
+  test-debian-10-cpp: !Task
+    ci: circle
+    template: docker-tests/circle.linux.yml
+    artifacts: []
+    params:
+      env:
+        DEBIAN: 10
+      run: debian-cpp
+
+    branch: nightly-2021-01-02-0-circle-test-debian-10-cpp
+    commit: 57ce306702d5410d744ea8fb6cff29d1cc9f2119
+  test-ubuntu-18.04-r-sanitizer: !Task
+    ci: azure
+    template: docker-tests/azure.linux.yml
+    artifacts: []
+    params:
+      run: ubuntu-r-sanitizer
+
+    branch: nightly-2021-01-02-0-azure-test-ubuntu-18.04-r-sanitizer
+    commit: c88cfa1ea8762d00fa59ead50cd39bd0e32fe5ea
+  test-ubuntu-18.04-python-3: !Task
+    ci: azure
+    template: docker-tests/azure.linux.yml
+    artifacts: []
+    params:
+      env:
+        UBUNTU: 18.04
+      run: ubuntu-python
+
+    branch: nightly-2021-01-02-0-azure-test-ubuntu-18.04-python-3
+    commit: 4b87e461bfec995f78b7970ea91f11a20410f67e
+  conda-linux-gcc-py38-aarch64: !Task
+    ci: drone
+    template: conda-recipes/drone.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py38(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev494-py38(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: linux_aarch64_python3.8.____cpython
+    branch: nightly-2021-01-02-0-drone-conda-linux-gcc-py38-aarch64
+    commit: 923bdccfe5eaf00c3ffbead6b4db784fa63b1730
+  test-ubuntu-18.04-cpp-release: !Task
+    ci: circle
+    template: docker-tests/circle.linux.yml
+    artifacts: []
+    params:
+      run: -e ARROW_BUILD_TYPE=release ubuntu-cpp
+
+    branch: nightly-2021-01-02-0-circle-test-ubuntu-18.04-cpp-release
+    commit: 2e1c7f7d769d0fd764b4cd0594886a1feaaec7d0
+  test-conda-python-3.8: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.8
+      run: conda-python
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.8
+    commit: 13dedde445fb9087237bbffedfa7b67837006c67
+  wheel-manylinux2014-cp38: !Task
+    ci: azure
+    template: python-wheels/azure.linux.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp38-cp38-manylinux2014_x86_64.whl
+    params:
+      python_version: 3.8
+      unicode_width: 16
+      wheel_tag: manylinux2014
+      wheel_dir: manylinux201x
+      test_docker_images:
+      - python:3.8
+      test_remove_system_libs: true
+    branch: nightly-2021-01-02-0-azure-wheel-manylinux2014-cp38
+    commit: 5f7465951e7511444276e952f82c6d4dfbb92b5d
+  wheel-osx-high-sierra-cp37m: !Task
+    ci: travis
+    template: python-wheels/travis.osx.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp37-cp37m-macosx_10_13_x86_64.whl
+    params:
+      python_version: 3.7
+      macos_deployment_target: 10.13
+      arrow_s3: ON
+    branch: nightly-2021-01-02-0-travis-wheel-osx-high-sierra-cp37m
+    commit: c63d9871c8e930281bd7db0b6583fc9cd6d0b3fd
+  conda-linux-gcc-py37-cpu-r40: !Task
+    ci: azure
+    template: conda-recipes/azure.linux.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py37(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev494-py37(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: linux_cuda_compiler_versionNonepython3.7.____cpython
+      r_config: linux_64_r_base4.0
+    branch: nightly-2021-01-02-0-azure-conda-linux-gcc-py37-cpu-r40
+    commit: 0dd460b4bf0c626d0f9a9d255df9e71cbc05676e
+  wheel-osx-high-sierra-cp36m: !Task
+    ci: travis
+    template: python-wheels/travis.osx.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp36-cp36m-macosx_10_13_x86_64.whl
+    params:
+      python_version: 3.6
+      macos_deployment_target: 10.13
+      arrow_s3: ON
+    branch: nightly-2021-01-02-0-travis-wheel-osx-high-sierra-cp36m
+    commit: d238ce7d9b1a150ef90da67903ad93d637d373e1
+  test-conda-python-3.7-hdfs-2.9.2: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        HDFS: 2.9.2
+      run: conda-python-hdfs
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.7-hdfs-2.9.2
+    commit: 34b241eb7f7afe351ce361ec9c1f2742a23f3b9d
+  ubuntu-focal-amd64: !Task
+    ci: github
+    template: linux-packages/github.linux.amd64.yml
+    artifacts:
+    - apache-arrow-archive-keyring_2.1.0.dev494-1.debian.tar.xz
+    - apache-arrow-archive-keyring_2.1.0.dev494-1.dsc
+    - apache-arrow-archive-keyring_2.1.0.dev494-1_all.deb
+    - apache-arrow-archive-keyring_2.1.0.dev494.orig.tar.gz
+    - apache-arrow_2.1.0.dev494-1.debian.tar.xz
+    - apache-arrow_2.1.0.dev494-1.dsc
+    - apache-arrow_2.1.0.dev494.orig.tar.gz
+    - gir1.2-arrow-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-arrow-cuda-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-gandiva-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-parquet-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-plasma-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - plasma-store-server-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - plasma-store-server_2.1.0.dev494-1_[a-z0-9]+.deb
+    params:
+      build_task: apt:build
+      target: ubuntu-focal
+      upload_extensions:
+      - .ddeb
+      - .deb
+      - .debian.tar.xz
+      - .dsc
+      - .orig.tar.gz
+    branch: nightly-2021-01-02-0-github-ubuntu-focal-amd64
+    commit: 67aa3363d2240a726e4205764dd72f37397b66cf
+  wheel-osx-high-sierra-cp38: !Task
+    ci: travis
+    template: python-wheels/travis.osx.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp38-cp38-macosx_10_13_x86_64.whl
+    params:
+      python_version: 3.8
+      macos_deployment_target: 10.13
+      arrow_s3: ON
+    branch: nightly-2021-01-02-0-travis-wheel-osx-high-sierra-cp38
+    commit: e10b71154a36f109b3ba82b9114de43b0f9fa9c6
+  test-ubuntu-20.04-cpp-14: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      run: -e CMAKE_ARGS=-DCMAKE_CXX_STANDARD=14 ubuntu-cpp
+
+    branch: nightly-2021-01-02-0-github-test-ubuntu-20.04-cpp-14
+    commit: c79611ea0cbf7d2e5098edc1b080c5c7eee0b3a0
+  test-conda-python-3.8-hypothesis: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        HYPOTHESIS_PROFILE: ci
+        PYARROW_TEST_HYPOTHESIS: ON
+        PYTHON: 3.8
+        # limit to execute hypothesis tests only
+        PYTEST_ARGS: -m hypothesis
+      run: conda-python-pandas
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.8-hypothesis
+    commit: a21a8f2117bd7b4a3507b56526e0bcb99fa9f734
+  test-r-rstudio-r-base-3.6-centos7-devtoolset-8: !Task
+    ci: azure
+    template: r/azure.linux.yml
+    artifacts: []
+    params:
+      r_org: rstudio
+      r_image: r-base
+      r_tag: 3.6-centos7
+      not_cran: 'TRUE'
+      devtoolset_version: 8
+
+    branch: nightly-2021-01-02-0-azure-test-r-rstudio-r-base-3.6-centos7-devtoolset-8
+    commit: e857efef1b02596f6afbe5d929c8957900fb5892
+  wheel-manylinux1-cp38: !Task
+    ci: azure
+    template: python-wheels/azure.linux.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp38-cp38-manylinux1_x86_64.whl
+    params:
+      python_version: 3.8
+      unicode_width: 16
+      wheel_tag: manylinux1
+      wheel_dir: manylinux1
+      test_docker_images:
+      - python:3.8
+      test_remove_system_libs: true
+    branch: nightly-2021-01-02-0-azure-wheel-manylinux1-cp38
+    commit: d3055ade7e8581aa95b2f1198c91e3530cc4d288
+  homebrew-r-autobrew: !Task
+    ci: travis
+    template: homebrew-formulae/travis.osx.r.yml
+    artifacts: []
+    params:
+      r_version: release
+
+  ############################## Gandiva Tasks ################################
+
+    branch: nightly-2021-01-02-0-travis-homebrew-r-autobrew
+    commit: 770637cc96acb5f4d4692e45694daf44947c2234
+  wheel-osx-mavericks-cp36m: !Task
+    ci: travis
+    template: python-wheels/travis.osx.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp36-cp36m-macosx_10_9_x86_64.whl
+    params:
+      python_version: 3.6
+      macos_deployment_target: 10.9
+      arrow_s3: OFF
+    branch: nightly-2021-01-02-0-travis-wheel-osx-mavericks-cp36m
+    commit: f80be44db07f623e5b754d28e69d6b7c2077a5ff
+  nuget: !Task
+    ci: github
+    template: nuget-packages/github.linux.yml
+    artifacts:
+    - Apache.Arrow.2.1.0.dev494.nupkg
+    - Apache.Arrow.2.1.0.dev494.snupkg
+    params:
+      run: ubuntu-csharp
+    branch: nightly-2021-01-02-0-github-nuget
+    commit: af56297948262aa90e0e2e6806d89025e2a4f532
+  conda-win-vs2017-py36-r36: !Task
+    ci: azure
+    template: conda-recipes/azure.win.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py36(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev494-py36(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: win_python3.6.____cpython
+      r_config: win_64_r_base3.6
+    branch: nightly-2021-01-02-0-azure-conda-win-vs2017-py36-r36
+    commit: 9de8bd5f4b2b2f2d8e6336f5da4a93df5460a789
+  test-r-rstudio-r-base-3.6-opensuse42: !Task
+    ci: azure
+    template: r/azure.linux.yml
+    artifacts: []
+    params:
+      r_org: rstudio
+      r_image: r-base
+      r_tag: 3.6-opensuse42
+      not_cran: 'TRUE'
+
+    branch: nightly-2021-01-02-0-azure-test-r-rstudio-r-base-3.6-opensuse42
+    commit: 4501fe9dc5b7a6057d17edc1f1b4597b7544f507
+  test-conda-python-3.7-spark-branch-3.0: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        SPARK: branch-3.0
+      # use the master branch of spark, so prevent reusing any layers
+      run: --no-leaf-cache conda-python-spark
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.7-spark-branch-3.0
+    commit: de502ccf4a749b662795e88ff5292344c2c6607f
+  test-fedora-33-python-3: !Task
+    ci: azure
+    template: docker-tests/azure.linux.yml
+    artifacts: []
+    params:
+      env:
+        FEDORA: 33
+      run: fedora-python
+
+    branch: nightly-2021-01-02-0-azure-test-fedora-33-python-3
+    commit: 50410c5cf8185e763b3ea6d308013e2054eb7eda
+  wheel-manylinux2010-cp39: !Task
+    ci: azure
+    template: python-wheels/azure.linux.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp39-cp39-manylinux2010_x86_64.whl
+    params:
+      python_version: 3.9
+      unicode_width: 16
+      wheel_tag: manylinux2010
+      wheel_dir: manylinux201x
+      test_docker_images:
+      - python:3.9
+      test_remove_system_libs: true
+    branch: nightly-2021-01-02-0-azure-wheel-manylinux2010-cp39
+    commit: a0ce663ce8ceebd105a26b0bbeba58ae9c0776ba
+  test-ubuntu-18.04-cpp: !Task
+    ci: circle
+    template: docker-tests/circle.linux.yml
+    artifacts: []
+    params:
+      env:
+        UBUNTU: 18.04
+      run: ubuntu-cpp
+
+    branch: nightly-2021-01-02-0-circle-test-ubuntu-18.04-cpp
+    commit: 856736ac2828ec67775d99f0cdd31bc115fbc837
+  test-conda-python-3.7-turbodbc-latest: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        TURBODBC: latest
+      # use the latest turbodbc release, so prevent reusing any cached layers
+      run: --no-leaf-cache conda-python-turbodbc
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.7-turbodbc-latest
+    commit: 7d89d9ef214e38d946f70fe3d0dfac2e9eb92239
+  test-r-rstudio-r-base-3.6-opensuse15: !Task
+    ci: azure
+    template: r/azure.linux.yml
+    artifacts: []
+    params:
+      r_org: rstudio
+      r_image: r-base
+      r_tag: 3.6-opensuse15
+      not_cran: 'TRUE'
+
+    branch: nightly-2021-01-02-0-azure-test-r-rstudio-r-base-3.6-opensuse15
+    commit: 0bd29dc9d6c44fd4033ed670c4d24f11b132235c
+  test-conda-python-3.8-dask-master: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.8
+        DASK: master
+      # use the master branch of dask, so prevent reusing any cached layers
+      run: --no-leaf-cache conda-python-dask
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.8-dask-master
+    commit: 2a77e0067720befb2e79dad4a200fa6edc16e8b7
+  test-r-linux-as-cran: !Task
+    ci: github
+    template: r/github.linux.cran.yml
+    artifacts: []
+    params:
+      MATRIX: ${{ matrix.r_image }}
+
+    branch: nightly-2021-01-02-0-github-test-r-linux-as-cran
+    commit: 2daa7c943f3ee6dbb416daa6ff4d7d975a8ef24b
+  ubuntu-groovy-arm64: !Task
+    ci: travis
+    template: linux-packages/travis.linux.arm64.yml
+    artifacts:
+    - apache-arrow_2.1.0.dev494-1.debian.tar.xz
+    - apache-arrow_2.1.0.dev494-1.dsc
+    - apache-arrow_2.1.0.dev494.orig.tar.gz
+    - gir1.2-arrow-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-gandiva-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-parquet-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet300_2.1.0.dev494-1_[a-z0-9]+.deb
+    params:
+      build_task: apt:build
+      target: ubuntu-groovy-arm64
+      upload_extensions:
+      - .ddeb
+      - .deb
+      - .debian.tar.xz
+      - .dsc
+      - .orig.tar.gz
+    branch: nightly-2021-01-02-0-travis-ubuntu-groovy-arm64
+    commit: 53fcb43eee4ad4f22f07f6747774d3ee07ce3983
+  test-r-rstudio-r-base-3.6-centos8: !Task
+    ci: azure
+    template: r/azure.linux.yml
+    artifacts: []
+    params:
+      r_org: rstudio
+      r_image: r-base
+      r_tag: 3.6-centos8
+      not_cran: 'TRUE'
+
+    branch: nightly-2021-01-02-0-azure-test-r-rstudio-r-base-3.6-centos8
+    commit: 2da18ca83ef1f647141aa14f16e4356cbe1e1ece
+  ubuntu-xenial-arm64: !Task
+    ci: travis
+    template: linux-packages/travis.linux.arm64.yml
+    artifacts:
+    - apache-arrow_2.1.0.dev494-1.debian.tar.xz
+    - apache-arrow_2.1.0.dev494-1.dsc
+    - apache-arrow_2.1.0.dev494.orig.tar.gz
+    - gir1.2-arrow-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-parquet-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet300_2.1.0.dev494-1_[a-z0-9]+.deb
+    params:
+      build_task: apt:build
+      target: ubuntu-xenial-arm64
+      upload_extensions:
+      - .ddeb
+      - .deb
+      - .debian.tar.xz
+      - .dsc
+      - .orig.tar.gz
+    branch: nightly-2021-01-02-0-travis-ubuntu-xenial-arm64
+    commit: 797e50eb284024ae268ec5281b4eaf35a6d38e7f
+  wheel-manylinux2014-cp37m: !Task
+    ci: azure
+    template: python-wheels/azure.linux.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp37-cp37m-manylinux2014_x86_64.whl
+    params:
+      python_version: 3.7
+      unicode_width: 16
+      wheel_tag: manylinux2014
+      wheel_dir: manylinux201x
+      test_docker_images:
+      - python:3.7
+      test_remove_system_libs: true
+    branch: nightly-2021-01-02-0-azure-wheel-manylinux2014-cp37m
+    commit: 49fd81022fa9f97407dec38ea51efac39dc5d3d4
+  test-debian-ruby: !Task
+    ci: circle
+    template: docker-tests/circle.linux.yml
+    artifacts: []
+    params:
+      run: debian-ruby
+
+    branch: nightly-2021-01-02-0-circle-test-debian-ruby
+    commit: 8e194d469ba26a9e6193faf8c0c41f1a4decc4d9
+  test-debian-c-glib: !Task
+    ci: circle
+    template: docker-tests/circle.linux.yml
+    artifacts: []
+    params:
+      run: debian-c-glib
+
+    branch: nightly-2021-01-02-0-circle-test-debian-c-glib
+    commit: 41b5802a9bd5d614fbb021a60a691bbe5e356069
+  conda-osx-clang-py38: !Task
+    ci: azure
+    template: conda-recipes/azure.osx.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py38(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev494-py38(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: osx_python3.8.____cpython
+    branch: nightly-2021-01-02-0-azure-conda-osx-clang-py38
+    commit: 4609b656577091f5b32b824facb3ef501f12d4b1
+  wheel-manylinux1-cp36m: !Task
+    ci: azure
+    template: python-wheels/azure.linux.yml
+    artifacts:
+    - pyarrow-2.1.0.dev494-cp36-cp36m-manylinux1_x86_64.whl
+    params:
+      python_version: 3.6
+      unicode_width: 16
+      wheel_tag: manylinux1
+      wheel_dir: manylinux1
+      test_docker_images:
+      - python:3.6
+      test_remove_system_libs: true
+    branch: nightly-2021-01-02-0-azure-wheel-manylinux1-cp36m
+    commit: 0c6a62d5ffdaa5cd617339bd1ccbc85d16192e83
+  conda-linux-gcc-py39-cuda: !Task
+    ci: azure
+    template: conda-recipes/azure.linux.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py39(h[a-z0-9]+)_0_cuda.tar.bz2
+    - pyarrow-2.1.0.dev494-py39(h[a-z0-9]+)_0_cuda.tar.bz2
+    params:
+      config: linux_cuda_compiler_version9.2python3.9.____cpython
+    branch: nightly-2021-01-02-0-azure-conda-linux-gcc-py39-cuda
+    commit: 8350bc52505e0ceb6e3b6139512dfaac18e6b2c8
+  debian-buster-amd64: !Task
+    ci: github
+    template: linux-packages/github.linux.amd64.yml
+    artifacts:
+    - apache-arrow-archive-keyring_2.1.0.dev494-1.debian.tar.xz
+    - apache-arrow-archive-keyring_2.1.0.dev494-1.dsc
+    - apache-arrow-archive-keyring_2.1.0.dev494-1_all.deb
+    - apache-arrow-archive-keyring_2.1.0.dev494.orig.tar.gz
+    - apache-arrow_2.1.0.dev494-1.debian.tar.xz
+    - apache-arrow_2.1.0.dev494-1.dsc
+    - apache-arrow_2.1.0.dev494.orig.tar.gz
+    - gir1.2-arrow-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-arrow-cuda-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-gandiva-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-parquet-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - gir1.2-plasma-1.0_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-glib300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libarrow-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda-glib300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libarrow-cuda-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-cuda300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libarrow-cuda300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset-glib300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libarrow-dataset-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-dataset300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libarrow-dataset300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-flight300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libarrow-flight300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow-python300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libarrow-python300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libarrow300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libarrow300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva-glib300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libgandiva-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libgandiva300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libgandiva300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet-glib300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libparquet-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libparquet300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libparquet300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-glib-dev_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-glib-doc_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma-glib300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libplasma-glib300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - libplasma300-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - libplasma300_2.1.0.dev494-1_[a-z0-9]+.deb
+    - plasma-store-server-dbgsym_2.1.0.dev494-1_[a-z0-9]+.d?deb
+    - plasma-store-server_2.1.0.dev494-1_[a-z0-9]+.deb
+    params:
+      build_task: apt:build
+      target: debian-buster
+      upload_extensions:
+      - .ddeb
+      - .deb
+      - .debian.tar.xz
+      - .dsc
+      - .orig.tar.gz
+    branch: nightly-2021-01-02-0-github-debian-buster-amd64
+    commit: 348b0bc628632ee3c383b87cd4d68bed8c360f7c
+  test-conda-python-3.7: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+      run: conda-python
+
+    branch: nightly-2021-01-02-0-github-test-conda-python-3.7
+    commit: 497fb7254f2154eb129d4c69a37d12e768671d97
+  conda-linux-gcc-py36-cpu-r36: !Task
+    ci: azure
+    template: conda-recipes/azure.linux.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev494-py36(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev494-py36(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: linux_cuda_compiler_versionNonepython3.6.____cpython
+      r_config: linux_64_r_base3.6
+    branch: nightly-2021-01-02-0-azure-conda-linux-gcc-py36-cpu-r36
+    commit: 98d59afce6c6866c8b0d498829b68cc37c98cfc0
+params: {}
+branch: nightly-2021-01-02-0

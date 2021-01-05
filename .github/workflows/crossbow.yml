@@ -1,0 +1,90 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+# NOTE: must set "Crossbow" as name to have the badge links working in the
+# github comment reports!
+name: Crossbow
+
+on:
+  push:
+    branches:
+      - "*-github-*"
+
+jobs:
+  build:
+    name: "Build wheel for Manylinux 2010"
+    runs-on: ubuntu-latest
+    env:
+      # archery uses this environment variable
+      PYTHON: 3.9
+      REPO: 415900421099.dkr.ecr.us-east-2.amazonaws.com/apache-arrow
+
+    steps:
+      ############################ Checkout ###################################
+      - name: Checkout Arrow
+        shell: bash
+        run: |
+          git clone --no-checkout https://github.com/kszucs/arrow.git arrow
+          git -C arrow config core.symlinks true
+          git -C arrow fetch -t https://github.com/kszucs/arrow.git wheel-vcpkg
+          git -C arrow checkout FETCH_HEAD
+          git -C arrow submodule update --init --recursive
+      - name: Fetch Submodules and Tags
+        shell: bash
+        run: cd arrow && ci/scripts/util_checkout.sh
+
+      ############################ Docker Registry ############################
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      ############################ Archery Installation #######################
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install Archery and Crossbow dependencies
+        run: pip install -e arrow/dev/archery[all]
+
+      ############################ Build & Test ###############################
+      - name: Build wheel
+        shell: bash
+        run: archery docker run --no-build -e SETUPTOOLS_SCM_PRETEND_VERSION=2.1.0.dev538 python-wheel-manylinux-2010
+      # TODO(kszucs): auditwheel show
+      - name: Test wheel
+        shell: bash
+        run: archery docker run python-wheel-manylinux-test
+
+      ############################ Artifact Uploading #########################
+      - name: Upload artifacts
+        shell: bash
+        run: |
+          python arrow/dev/tasks/crossbow.py \
+            --queue-path . \
+            --queue-remote https://github.com/ursa-labs/crossbow \
+            upload-artifacts \
+            --pattern "arrow/python/repaired_wheels/*.whl" \
+            --sha actions-825-github-wheel-manylinux2010-cp39 \
+            --tag actions-825-github-wheel-manylinux2010-cp39
+        env:
+          CROSSBOW_GITHUB_TOKEN: ${{ secrets.CROSSBOW_GITHUB_TOKEN }}

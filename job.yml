@@ -1,0 +1,38 @@
+!Job
+target: !Target
+  head: 6a79a83a77ecc95efc8f7c83d4e5aff0e2de5490
+  email: unknown
+  branch: ARROW-11147
+  remote: https://github.com/arw2019/arrow.git
+  version: 2.1.0.dev543
+  no_rc_version: 2.1.0.dev543
+  no_rc_semver_version: 2.1.0-dev543
+tasks:
+  test-conda-python-3.8-dask-master: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.8
+        DASK: master
+      # use the master branch of dask, so prevent reusing any cached layers
+      run: --no-leaf-cache conda-python-dask
+
+    branch: actions-830-github-test-conda-python-3.8-dask-master
+    commit: 1e3c26fc290ec6ce52751341f92c98d712beb33e
+  test-conda-python-3.7-dask-latest: !Task
+    ci: github
+    template: docker-tests/github.linux.yml
+    artifacts: []
+    params:
+      env:
+        PYTHON: 3.7
+        DASK: latest
+      # use the latest dask release, so prevent reusing any cached layers
+      run: --no-leaf-cache conda-python-dask
+
+    branch: actions-830-github-test-conda-python-3.7-dask-latest
+    commit: cdd10b1e69de0c6a5dc69c87b6ad18e1abfcc479
+params: {}
+branch: actions-830

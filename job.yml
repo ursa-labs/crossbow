@@ -1,0 +1,57 @@
+!Job
+target: !Target
+  head: 1030659c326204588897edc02999845b1f92ea3f
+  email: unknown
+  branch: crossbow-credentials
+  remote: https://github.com/kszucs/arrow.git
+  version: 2.1.0.dev572
+  no_rc_version: 2.1.0.dev572
+  no_rc_semver_version: 2.1.0-dev572
+tasks:
+  wheel-osx-mavericks-cp38: !Task
+    ci: github
+    template: python-wheels/github.osx.yml
+    artifacts:
+    - pyarrow-2.1.0.dev572-cp38-cp38-macosx_10_9_x86_64.whl
+    params:
+      python_version: 3.8
+      macos_deployment_target: 10.9
+      arrow_s3: OFF
+    branch: actions-868-github-wheel-osx-mavericks-cp38
+    commit: 0ea6fbd10db0ddfbf2ac53bf7253fb4eff0edfae
+  conda-linux-gcc-py38-cpu: !Task
+    ci: azure
+    template: conda-recipes/azure.linux.yml
+    artifacts:
+    - arrow-cpp-2.1.0.dev572-py38(h[a-z0-9]+)_0_cpu.tar.bz2
+    - pyarrow-2.1.0.dev572-py38(h[a-z0-9]+)_0_cpu.tar.bz2
+    params:
+      config: linux_cuda_compiler_versionNonepython3.8.____cpython
+    branch: actions-868-azure-conda-linux-gcc-py38-cpu
+    commit: f2eb8a1b8ac382e778158009d9413d5b690028d3
+  wheel-win-cp36m: !Task
+    ci: github
+    template: python-wheels/github.win.yml
+    artifacts:
+    - pyarrow-2.1.0.dev572-cp36-cp36m-win_amd64.whl
+    params:
+      python_version: 3.6
+    branch: actions-868-github-wheel-win-cp36m
+    commit: b218df4795cb495fb6a12c87fda280b1defadb0a
+  wheel-manylinux1-cp36m: !Task
+    ci: azure
+    template: python-wheels/azure.linux.yml
+    artifacts:
+    - pyarrow-2.1.0.dev572-cp36-cp36m-manylinux1_x86_64.whl
+    params:
+      python_version: 3.6
+      unicode_width: 16
+      wheel_tag: manylinux1
+      wheel_dir: manylinux1
+      test_docker_images:
+      - python:3.6
+      test_remove_system_libs: true
+    branch: actions-868-azure-wheel-manylinux1-cp36m
+    commit: bf7a65ce8a40ae723c9d8b43c255528f956c1f4d
+params: {}
+branch: actions-868
